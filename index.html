@@ -930,7 +930,7 @@ footer{
 /* ── QUOTE FORM BUILDER ─────────────────────── */
 (function(){
   const FT=['Mesh wire','Clearview (plastic coated)','Razor wire','Concrete palisade','Precast','Steel palisade'];
-  const GT=['Sliding gate','Double swing gate (galvanized)','Swing gate (pedestrian)'];
+  const GT=['Sliding gate (mesh)','Sliding gate (clearview)','Double swing gate (galvanized)','Double swing gate (mesh)','Double swing gate (clearview)','Swing gate (pedestrian)'];
   const MT=['Clamps','Screws','Posts/poles','Panels','Spikes and razor wire'];
   const CO=['Galvanized','Plastic coated','Not applicable'];
   const GR=['25mm × 50mm','50mm × 50mm','50mm × 75mm','75mm × 75mm','100mm × 100mm','N/A (palisade / precast / concrete)','Other (specify in notes)'];
@@ -987,10 +987,16 @@ footer{
         <label>Gate type</label><select name="gate-item" required>${o(GT)}</select>
       </div>
       <div class="ff gate-fields" data-type="gts" style="display:none">
+        <label>Grid spacing</label><select name="gate-grid" required>${o(GR)}</select><small>e.g. 25mm × 50mm</small>
+      </div>
+      <div class="ff gate-fields" data-type="gts" style="display:none">
         <label>Width (m)</label><input type="number" name="gate-w" min="0.1" step="0.01" required>
       </div>
       <div class="ff gate-fields" data-type="gts" style="display:none">
         <label>Height (m)</label><input type="number" name="gate-h" min="0.1" step="0.01" required>
+      </div>
+      <div class="ff gate-fields" data-type="gts" style="display:none">
+        <label>Coating</label><select name="gate-coat" required>${o(CO)}</select>
       </div>
       <div class="ff gate-fields" data-type="gts" style="display:none">
         <label>Qty</label><input type="number" name="gate-qty" min="1" step="1" required>
@@ -1048,7 +1054,7 @@ footer{
         const e={type:type==='res'?'Residential':'Commercial',item:g('fence-item')?.value,grid:g('fence-grid')?.value,len:g('fence-len')?.value,plen:g('fence-plen')?.value||'—',h:g('fence-h')?.value,coat:g('fence-coat')?.value,qty:g('fence-qty')?.value,note:g('line-note')?.value||'—'};
         return(e.len&&e.h&&e.qty)?e:null;
       }else if(type==='gts'){
-        const e={type:'Gate',item:g('gate-item')?.value,w:g('gate-w')?.value,h:g('gate-h')?.value,qty:g('gate-qty')?.value,note:g('line-note')?.value||'—'};
+        const e={type:'Gate',item:g('gate-item')?.value,grid:g('gate-grid')?.value,w:g('gate-w')?.value,h:g('gate-h')?.value,coat:g('gate-coat')?.value,qty:g('gate-qty')?.value,note:g('line-note')?.value||'—'};
         return(e.w&&e.h&&e.qty)?e:null;
       }else if(type==='mat'){
         const e={type:'Material',item:g('mat-item')?.value,unit:g('mat-unit')?.value,qty:g('mat-qty')?.value,coat:g('mat-coat')?.value,note:g('line-note')?.value||'—'};
@@ -1065,7 +1071,7 @@ footer{
       if(l.type==='Residential'||l.type==='Commercial'){
         s+=`${i+1}. [${l.type}] ${l.item}\n   Grid:${l.grid} Total Length:${l.len}m Panel Length:${l.plen}m Height:${l.h}m Coating:${l.coat} Qty:${l.qty}\n   Notes:${l.note}\n`;
       }else if(l.type==='Gate'){
-        s+=`${i+1}. [${l.type}] ${l.item} W:${l.w}m H:${l.h}m Qty:${l.qty}\n   Notes:${l.note}\n`;
+        s+=`${i+1}. [${l.type}] ${l.item} Grid:${l.grid} W:${l.w}m H:${l.h}m Coating:${l.coat} Qty:${l.qty}\n   Notes:${l.note}\n`;
       }else if(l.type==='Material'){
         s+=`${i+1}. [${l.type}] ${l.item} Qty:${l.qty} ${l.unit} Coat:${l.coat}\n   Notes:${l.note}\n`;
       }
