@@ -569,11 +569,37 @@ footer{
   .stat:nth-child(3){border-top:1px solid var(--border)}
   .quote-choice{grid-template-columns:1fr}
 }
+
 @media(max-width:520px){
   .fgrid,.lgrid{grid-template-columns:1fr}
   .lgrid .s2,.fgrid .full{grid-column:span 1}
   .nav-links{display:none}
   .hero h1{font-size:clamp(2.6rem,12vw,4rem)}
+  /* Adjust hero-sub max-width */
+  .hero-sub{max-width:unset;}
+  /* Ensure text in quote builder notes wraps */
+  .expert-note p, .qc-card p, .qph p, .response-list li {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+  /* Adjust font size for nav-brand on very small screens */
+  .nav-brand{font-size:.85rem;}
+  /* Adjust padding for feature-copy on smaller screens */
+  .feature-copy{padding:clamp(1.5rem,4vw,2.5rem);}
+  /* Adjust padding for quote-shell */
+  .quote-shell{padding:clamp(1rem,2vw,1.5rem);}
+  /* Adjust padding for contact-side */
+  .contact-side{padding:1.25rem;}
+  /* Adjust font size for contact-primary h3 */
+  .contact-primary h3{font-size:1.2rem;}
+  /* Adjust padding for sec */
+  .sec{padding:clamp(3rem,8vw,6rem) max(1rem,3vw);}
+  /* Adjust hero-body padding */
+  .hero-body{padding:0 max(1rem,3vw) min(6vh,60px);}
+  /* Adjust hero-scroll position */
+  .hero-scroll{right:max(1rem,3vw);}
+  /* Adjust nav padding */
+  .nav{padding:0 max(1rem,3vw);}
 }
 
 </style>
@@ -582,7 +608,7 @@ footer{
 
 <!-- NAV -->
 <nav class="nav" id="nav">
-  <a href="#" class="nav-brand">Yandisuthando Fencing</a>
+  <a href="#" class="nav-brand"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAACWAQMAAAB+rGzYAAAABlBMVEX///8AAABVwt2RAAAAAXRSTlMAQObYZgAAAFRJREFUeNrtwTEBAAAAgiD7p3/Tz1xABQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP+bABbYAAFWB0/fAAAAAElFTkSuQmCC" alt="Yandisuthando Fencing Logo" style="height: 20px; vertical-align: middle; margin-right: 5px;">Yandisuthando Fencing</a>
   <ul class="nav-links">
     <li><a href="#services">Services</a></li>
     <li><a href="#quotes">Quote</a></li>
