@@ -575,52 +575,6 @@ footer{
   .nav-links{display:none}
   .hero h1{font-size:clamp(2.6rem,12vw,4rem)}
 }
-
-/* ── CATEGORY MODAL ───────────────────────────── */
-.cat-modal{
-  position:fixed;inset:0;z-index:1000;
-  display:flex;align-items:center;justify-content:center;
-}
-.cat-modal-backdrop{
-  position:absolute;inset:0;
-  background:rgba(0,0,0,.5);
-  backdrop-filter:blur(4px);
-}
-.cat-modal-content{
-  position:relative;
-  background:var(--paper);
-  border-radius:16px;
-  padding:2rem;
-  max-width:480px;
-  width:90%;
-  box-shadow:0 20px 60px rgba(0,0,0,.2);
-}
-.cat-modal-content h3{
-  font-family:'Montserrat',sans-serif;font-weight:800;
-  font-size:1.4rem;color:var(--ink);margin-bottom:.4rem;
-}
-.cat-modal-content p{
-  color:var(--ink60);font-size:.95rem;margin-bottom:1.4rem;
-}
-.cat-options{
-  display:grid;grid-template-columns:1fr 1fr;gap:.9rem;margin-bottom:1.4rem;
-}
-.cat-option{
-  display:flex;flex-direction:column;align-items:center;gap:.6rem;
-  padding:1.2rem;border:2px solid var(--border);
-  border-radius:12px;background:var(--paper);
-  cursor:pointer;transition:all .2s;
-}
-.cat-option:hover{
-  border-color:var(--g);background:rgba(26,122,80,.05);
-  transform:translateY(-2px);
-}
-.cat-option i{
-  font-size:1.6rem;color:var(--g);
-}
-.cat-option span{
-  font-weight:600;color:var(--ink);font-size:.9rem;
-}
 </style>
 </head>
 <body>
@@ -805,17 +759,20 @@ footer{
               <button type="button" class="qtab" data-tab="gts" role="tab" aria-selected="false">Gates</button>
               <button type="button" class="qtab" data-tab="mat" role="tab" aria-selected="false">Materials</button>
             </div>
-            <div class="qph"><p>Select a category above to view lines, or add a new line below.</p><button type="button" class="btn btn-green" id="add-line-btn"><i class="fa-solid fa-plus"></i>Add Line</button></div>
             <div class="qpanel active" data-panel="res" role="tabpanel">
+              <div class="qph"><p>Residential fence runs — type, grid spacing, length, height, coating, quantity.</p><button type="button" class="btn2 addl" data-sec="res"><i class="fa-solid fa-plus"></i>Add line</button></div>
               <div class="qlines" data-ls="res"></div>
             </div>
             <div class="qpanel" data-panel="com" role="tabpanel" hidden>
+              <div class="qph"><p>Commercial perimeter fencing — type, grid spacing, length, height, coating, quantity.</p><button type="button" class="btn2 addl" data-sec="com"><i class="fa-solid fa-plus"></i>Add line</button></div>
               <div class="qlines" data-ls="com"></div>
             </div>
             <div class="qpanel" data-panel="gts" role="tabpanel" hidden>
+              <div class="qph"><p>Gates — width and height in metres, gate type, finish, quantity.</p><button type="button" class="btn2 addl" data-sec="gts"><i class="fa-solid fa-plus"></i>Add line</button></div>
               <div class="qlines" data-ls="gts"></div>
             </div>
             <div class="qpanel" data-panel="mat" role="tabpanel" hidden>
+              <div class="qph"><p>Materials only — item, unit, coating (if applicable), exact quantity.</p><button type="button" class="btn2 addl" data-sec="mat"><i class="fa-solid fa-plus"></i>Add line</button></div>
               <div class="qlines" data-ls="mat"></div>
             </div>
             <div class="qsubmit">
@@ -824,33 +781,6 @@ footer{
               <div id="qmsg" class="qmsg" role="status" aria-live="polite" hidden></div>
             </div>
           </form>
-          <!-- Category Selection Modal -->
-          <div id="cat-modal" class="cat-modal" hidden>
-            <div class="cat-modal-backdrop"></div>
-            <div class="cat-modal-content">
-              <h3>Select Line Category</h3>
-              <p>What type of line would you like to add?</p>
-              <div class="cat-options">
-                <button type="button" class="cat-option" data-cat="res">
-                  <i class="fa-solid fa-house"></i>
-                  <span>Residential</span>
-                </button>
-                <button type="button" class="cat-option" data-cat="com">
-                  <i class="fa-solid fa-building"></i>
-                  <span>Commercial</span>
-                </button>
-                <button type="button" class="cat-option" data-cat="gts">
-                  <i class="fa-solid fa-door-open"></i>
-                  <span>Gates</span>
-                </button>
-                <button type="button" class="cat-option" data-cat="mat">
-                  <i class="fa-solid fa-box"></i>
-                  <span>Materials</span>
-                </button>
-              </div>
-              <button type="button" class="btn btn-outline" id="cat-modal-cancel">Cancel</button>
-            </div>
-          </div>
         </div>
       </details>
     </div>
@@ -1050,8 +980,7 @@ footer{
     <div class="lgrid">
       <div class="ff s2"><label>Fence type</label><select name="${sec}-item" required>${o(FT)}</select></div>
       <div class="ff"><label>Grid spacing</label><select name="${sec}-grid" required>${o(GR)}</select><small>e.g. 25mm × 50mm</small></div>
-      <div class="ff"><label>Total run length (m)</label><input type="number" name="${sec}-len" min="0.1" step="0.1" required></div>
-      <div class="ff"><label>Panel/section length (m)</label><input type="number" name="${sec}-plen" min="0.1" step="0.01" placeholder="e.g. 3.2"></div>
+      <div class="ff"><label>Length (m)</label><input type="number" name="${sec}-len" min="0.1" step="0.1" required></div>
       <div class="ff"><label>Height (m)</label><input type="number" name="${sec}-h" min="0.1" step="0.1" required></div>
       <div class="ff"><label>Coating</label><select name="${sec}-coat" required>${o(CO)}</select></div>
       <div class="ff"><label>Qty</label><input type="number" name="${sec}-qty" min="1" step="1" required><small>Panels / bays</small></div>
@@ -1093,28 +1022,7 @@ footer{
     else c.appendChild(fenceLine(sec));
   }
 
-  const modal=document.getElementById('cat-modal');
-  const addLineBtn=document.getElementById('add-line-btn');
-  const catModalCancel=document.getElementById('cat-modal-cancel');
-  
-  function openModal(){modal.hidden=false;}
-  function closeModal(){modal.hidden=true;}
-  
-  addLineBtn.addEventListener('click',openModal);
-  catModalCancel.addEventListener('click',closeModal);
-  modal.querySelector('.cat-modal-backdrop').addEventListener('click',closeModal);
-  
-  document.querySelectorAll('.cat-option').forEach(btn=>{
-    btn.addEventListener('click',()=>{
-      const cat=btn.dataset.cat;
-      addLine(cat);
-      closeModal();
-      // Switch to the selected tab
-      const tab=document.querySelector(`.qtab[data-tab="${cat}"]`);
-      if(tab)tab.click();
-    });
-  });
-  
+  document.querySelectorAll('.addl').forEach(b=>b.addEventListener('click',()=>addLine(b.dataset.sec)));
   tabs.forEach(t=>t.addEventListener('click',()=>{
     const id=t.dataset.tab;
     tabs.forEach(x=>{x.classList.toggle('active',x===t);x.setAttribute('aria-selected',x===t?'true':'false');});
@@ -1127,7 +1035,7 @@ footer{
   function readFence(sec){
     return[...qs(`[data-ls="${sec}"]`).querySelectorAll('.qline')].map(l=>{
       const g=n=>qs(`[name="${n}"]`,l);
-      const e={item:g(`${sec}-item`)?.value,grid:g(`${sec}-grid`)?.value,len:g(`${sec}-len`)?.value,plen:g(`${sec}-plen`)?.value||'—',h:g(`${sec}-h`)?.value,coat:g(`${sec}-coat`)?.value,qty:g(`${sec}-qty`)?.value,note:g(`${sec}-note`)?.value||'—'};
+      const e={item:g(`${sec}-item`)?.value,grid:g(`${sec}-grid`)?.value,len:g(`${sec}-len`)?.value,h:g(`${sec}-h`)?.value,coat:g(`${sec}-coat`)?.value,qty:g(`${sec}-qty`)?.value,note:g(`${sec}-note`)?.value||'—'};
       return(e.len&&e.h&&e.qty)?e:null;
     }).filter(Boolean);
   }
@@ -1149,7 +1057,7 @@ footer{
   function fmtF(title,lines){
     if(!lines.length)return'';
     let s=`\n${title}\n${'-'.repeat(title.length)}\n`;
-    lines.forEach((l,i)=>s+=`${i+1}. ${l.item}\n   Grid:${l.grid} Total Length:${l.len}m Panel Length:${l.plen}m Height:${l.h}m Coating:${l.coat} Qty:${l.qty}\n   Notes:${l.note}\n`);
+    lines.forEach((l,i)=>s+=`${i+1}. ${l.item}\n   Grid:${l.grid} Length:${l.len}m Height:${l.h}m Coating:${l.coat} Qty:${l.qty}\n   Notes:${l.note}\n`);
     return s;
   }
   function fmtG(lines){
@@ -1203,7 +1111,7 @@ footer{
       showMsg("Quote sent! We'll reply with full pricing within 24–48 hours.",false);
       form.reset();reset();sync();
     }catch(err){
-      showMsg('Could not send automatically. Please WhatsApp 0724446677 or email yandisuthandosa@gmail.com.',true);
+      showMsg('Could not send automatically. Please WhatsApp 0724446677 or email kingtxaba@gmail.com.',true);
     }finally{
       sub.disabled=false;sub.innerHTML=defHTML;
     }
